@@ -1,0 +1,17 @@
+# lintr setting
+# 基本デフォルト
+# 無視したければ'NULL'を入力
+
+linters: with_defaults(
+  line_length_linter(120),         # 行長120文字
+  object_usage_linter = NULL,      # 未使用変数の警告を無効化
+  commented_code_linter = NULL,    # コメントアウトされたコードの警告を無効化
+  object_name_linter = NULL        # 命名規則チェックをオフ
+)
+encoding: "UTF-8"
+
+# その他代表的ルール一覧（必要があれば）
+# assignment_linter() # '<-'を推奨
+# trailing_blank_lines_linter() # 末尾の空行の警告
+# spaces_left_parentheses_linter() # 'function ('のスペース
+# infix_spaces_linter() # 演算子間のスペース

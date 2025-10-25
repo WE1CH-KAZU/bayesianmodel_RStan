@@ -1,9 +1,32 @@
+# RStudio
 .Rhistory
 .Rproj.user/
 .RData
 .Ruserdata
+
+# Renviron
 .Renviron
+
+# renv
+# renv/libraryにパッケージが入っているので必ず項目に入れる
 renv/library/
 renv/staging/
-data/
+renv/python/
+renv/cache/
+
+# targets
+_data/
+_targets/
+_targets_r/
+_targets_meta/
+
+# その他
+# data/
 outputs/
+*.Rout
+# *.html
+# *.pdf
+# *.csv
+*.rds
+*.qs
+.DS_Store
