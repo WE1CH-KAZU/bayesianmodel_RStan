@@ -15,13 +15,13 @@ renv/python/
 renv/cache/
 
 # targets
-_data/
+# _data/
 _targets/
 _targets_r/
 _targets_meta/
 
 # その他
-# data/
+/data/raw/
 outputs/
 *.Rout
 # *.html

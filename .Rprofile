@@ -11,7 +11,7 @@ source("renv/activate.R")
 options(
   repos = c(CRAN = "https://packagemanager.posit.co/cran/latest"),
   download.file.method = "libcurl",
-  scipen = 999,                   # 科学表記を抑制
+  scipen = 999, # 科学表記を抑制
   dplyr.summarise.inform = FALSE, # 冗長出力を抑制
   renv.verbose = TRUE
 )
