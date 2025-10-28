@@ -8,20 +8,30 @@
 //    http://mc-stan.org/users/interfaces/rstan.html
 //    https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started
 //
+
 data {
-  int N;  // サンプルサイズ
-  vector[N] sales;  //データ
+  int N;  //  sample size
+  int animal_num[N];  // data
 }
+
 
 parameters {
-  real mu;  // 平均
-  real<lower=0> sigma;  // 標準偏差
+  real<lower=0> lambda;  // intensity
 }
 
+
 model {
-  // 平均mu 標準偏差sigmaの正規分布に従うデータと仮定
+  // poisson distribution
+  // Po(lambda)
+  animal_num ~ poisson(lambda);
+}
+
+generated quantities {
+  // posterior distribution
+  // Po(lambda)
+  int pred[N];
   for (i in 1:N) {
-    sales[i] ~ normal(mu, sigma);
+    pred[i] = poisson_rng(lambda);
   }
 }
-// 明示的に最後の空行を付ける必要がある
+
