@@ -11,7 +11,7 @@ options(mc.cores = parallel::detectCores())
 
 # ---- import data ----
 beer_sales_ab <- read.csv(
-  here("data","raw","3-2-1-beer-sales-2.csv")
+  here("data", "raw", "3-2-1-beer-sales-2.csv")
 )
 
 ## sample size
@@ -43,7 +43,7 @@ d_list <- list(
 )
 
 ## ---- mcmc ----
-filepath <- here("src","single_linear_reg_model.stan")
+filepath <- here("src", "single_linear_reg_model.stan")
 mcmc_result <- stan(
   file = filepath,
   data = d_list,
@@ -59,7 +59,7 @@ mcmc_sample <- rstan::extract(
 ## ---- trace plot ----
 mcmc_combo(
   mcmc_sample,
-  pars = c("intercept","beta","sigma")
+  pars = c("intercept", "beta", "sigma")
 )
 
 print(
@@ -76,13 +76,13 @@ d_list_pred <- list(
   sales = beer_sales_ab$sales,
   temperature = beer_sales_ab$temperature,
   N = sample_size,
-  temperature_pred = temperature_pred,  # 推定したい値
-  N_pred = length(temperature_pred)  # 推定したい値の数
+  temperature_pred = temperature_pred, # 推定したい値
+  N_pred = length(temperature_pred) # 推定したい値の数
 )
 
 ## ---- mcmc ----
 filepath_pred <- here(
-  "src","single_linear_reg_pred_model.stan"
+  "src", "single_linear_reg_pred_model.stan"
 )
 mcmc_sample_pred <- stan(
   file = filepath_pred,
@@ -92,7 +92,7 @@ mcmc_sample_pred <- stan(
 
 print(
   mcmc_sample_pred,
-  probs = c(0.03,0.50,0.97)
+  probs = c(0.03, 0.50, 0.97)
 )
 # 単純にサンプルから4000回シミュレーションして得た期待値
 # の95%よりも
@@ -113,15 +113,15 @@ mcmc_result_pred <- rstan::extract(
 mcmc_intervals(
   mcmc_result_pred,
   regex_pars = c("sales_pred."),
-  prob =  0.80,  # 太線範囲
-  prob_outer = 0.94  # 細線範囲
+  prob =  0.80, # 太線範囲
+  prob_outer = 0.94 # 細線範囲
 )
 
 # m_pred, sales_pred の区間範囲の比較
 mcmc_intervals(
   mcmc_result_pred,
   pars = c("mu_pred[1]", "sales_pred[1]"),
-  prob =  0.80,
+  prob = 0.80,
   prob_outer = 0.94
 )
 
@@ -130,7 +130,7 @@ mcmc_intervals(
 # 予測分布同士を比較
 mcmc_areas(
   mcmc_sample_pred,
-  pars = c("sales_pred[1]", "sales_pred[20]"),  # 11度と30度
+  pars = c("sales_pred[1]", "sales_pred[20]"), # 11度と30度
   prob = 0.6,
   prob_outer = 0.94
 )

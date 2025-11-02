@@ -11,27 +11,28 @@ rstan_options(auto_write = TRUE)
 
 # ---- import data ----
 beer_sales_ab <- read.csv(
-  here("data","raw","2-6-1-beer-sales-ab.csv")
-  )
+  here("data", "raw", "2-6-1-beer-sales-ab.csv")
+)
 
 # ---- visualization ----
 ggplot(
   data = beer_sales_ab,
   mapping = aes(
     x = sales,
-    y = after_stat(density),  # ..density..
+    y = after_stat(density), # ..density..
     colour = beer_name,
     fill = beer_name
-    )) + 
-    geom_histogram(
-      alpha = 0.5,
-      position = "identity"
-    ) + 
-    geom_density(
-      alpha = 0.5,
-      size = NA,
-      adjust = 1.5
-    )
+  )
+) +
+  geom_histogram(
+    alpha = 0.5,
+    position = "identity"
+  ) +
+  geom_density(
+    alpha = 0.5,
+    size = NA,
+    adjust = 1.5
+  )
 
 
 # ---- data reformat ----
@@ -47,7 +48,7 @@ d_list <- list(
 
 
 # ---- mcmc ----
-file_name = here("src","beer_sales_a_b.stan")
+file_name <- here("src", "beer_sales_a_b.stan")
 mcmc_result <- stan(
   file = file_name,
   data = d_list,
@@ -56,5 +57,5 @@ mcmc_result <- stan(
 
 print(
   mcmc_result,
-  probs = c(0.03,0.5,0.97)
+  probs = c(0.03, 0.5, 0.97)
 )

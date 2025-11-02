@@ -49,16 +49,16 @@ mcmc_poisson <- stan(
 y_rep_normal <- rstan::extract(mcmc_normal)$pred
 y_rep_poisson <- rstan::extract(mcmc_poisson)$pred
 
-y_rep_normal[1,]
-y_rep_poisson[1,]
+y_rep_normal[1, ]
+y_rep_poisson[1, ]
 
 ## ---- compare ----
 ppc_hist(
   y = animal_num$animal_num,
-  yrep = y_rep_normal[1:5, ]  # 1:5までのMCMCデータ
+  yrep = y_rep_normal[1:5, ] # 1:5までのMCMCデータ
 )
 
 ppc_hist(
   y = animal_num$animal_num,
-  yrep = y_rep_poisson[1:5, ]  # 1:5までのMCMCデータ
+  yrep = y_rep_poisson[1:5, ] # 1:5までのMCMCデータ
 )

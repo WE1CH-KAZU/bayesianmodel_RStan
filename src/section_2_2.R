@@ -62,7 +62,6 @@ head(birds)
 cor(birds$body_length, birds$feather_length)
 
 
-
 ## ---- 自己共分散, 自己相関係数, コレログラム ----
 # ナイル川の流量データ
 # "Nile"にはあらかじめデフォルトでナイル川の流量データが入っている

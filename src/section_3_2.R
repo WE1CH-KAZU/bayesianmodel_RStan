@@ -13,7 +13,7 @@ options(mc.cores = parallel::detectCores())
 
 
 # ---- import data ----
-file_beer_sales_1 <- read.csv(here("data","raw","2-4-1-beer-sales-1.csv"))
+file_beer_sales_1 <- read.csv(here("data", "raw", "2-4-1-beer-sales-1.csv"))
 dim(file_beer_sales_1)
 head(file_beer_sales_1, n = 3)
 
@@ -26,7 +26,7 @@ s_size <- nrow(file_beer_sales_1)
 
 # to list
 data_list <- list(
-  sales = file_beer_sales_1$sales,  # 明示的に列を指定する必要がある
+  sales = file_beer_sales_1$sales, # 明示的に列を指定する必要がある
   N = s_size
 )
 print(data_list)
@@ -37,14 +37,14 @@ dim(data_list)
 SEED <- 28
 
 mcmc_result <- stan(
-  file = "src/section3_calc-normal-mean-variance.stan",  # stanのファイル. working directryから記述する必要あり
-  model_name = "normal_model",  # model name
-  data = data_list,  # data
-  seed = SEED,  # シード値
-  chains = 4,  # チェーン数（セット数）
-  iter = 4000,  # iteration
-  warmup = 1000,  # バーンイン 数（初回の乱数生成からどれだけ捨てるか）
-  thin = 1  # 間引き数（iterationからどれだけ間引くか。1は間引かない）
+  file = "src/section3_calc-normal-mean-variance.stan", # stanのファイル. working directryから記述する必要あり
+  model_name = "normal_model", # model name
+  data = data_list, # data
+  seed = SEED, # シード値
+  chains = 4, # チェーン数（セット数）
+  iter = 4000, # iteration
+  warmup = 1000, # バーンイン 数（初回の乱数生成からどれだけ捨てるか）
+  thin = 1 # 間引き数（iterationからどれだけ間引くか。1は間引かない）
 )
 
 
@@ -66,7 +66,6 @@ traceplot(mcmc_result)
 
 # 意図的にバーンインを含めたtraceplotも記述できる
 traceplot(mcmc_result, inc_warmup = TRUE)
-
 
 
 # ---- (option)ベイズモデル構造を可視化する ----
@@ -94,14 +93,14 @@ coordinates(g) <- list(
 
 p <- ggdag(g, text = FALSE, use_labels = "name") +
   geom_dag_point() +
-  geom_dag_text(size = 5, vjust = -1/2) +
+  geom_dag_text(size = 5, vjust = -1 / 2) +
   geom_dag_edges(arrow_directed = grid::arrow(length = unit(6, "pt"))) +
   # プレート（i=1..N）を注釈で描く：sales の周りを囲う
   annotate("rect",
-           xmin = 0.6, xmax = 1.4, ymin = -0.4, ymax = 0.4,
-           linetype = "dashed", fill = NA) +
+    xmin = 0.6, xmax = 1.4, ymin = -0.4, ymax = 0.4,
+    linetype = "dashed", fill = NA
+  ) +
   annotate("text", x = 1.4, y = 0.42, label = "i = 1..N", hjust = 1, size = 4) +
   theme_void()
 
 p
-

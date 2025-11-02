@@ -44,8 +44,8 @@ mcmc_samples <- rstan::extract(
 )
 
 class(mcmc_samples)
-dim(mcmc_samples)  # iteration, chains, parameter-number
-dimnames(mcmc_samples)  # more detail dimension
+dim(mcmc_samples) # iteration, chains, parameter-number
+dimnames(mcmc_samples) # more detail dimension
 
 # 1回目のチェーンで得た、最初の平均サンプル
 mcmc_samples[1, "chain:1", "mu"]
@@ -53,7 +53,7 @@ mcmc_samples[1, "chain:1", "mu"]
 
 # ---- general statistic data ----
 mu_mcmc_vec <- as.vector(
-  mcmc_samples[,,"mu"]
+  mcmc_samples[, , "mu"]
 )
 
 # こうする事で様々な統計量を取得できる
@@ -69,8 +69,8 @@ quantile(mu_mcmc_vec, probs = c(0.025, 0.975))
 library(ggfortify)
 
 autoplot(
-  ts(mcmc_samples[,,"mu"]),
-  facets = F,  # chains = 4 を全部まとめて1つのグラフにする
+  ts(mcmc_samples[, , "mu"]),
+  facets = F, # chains = 4 を全部まとめて1つのグラフにする
   ylab = "mu",
   main = "Trace plot"
 )
@@ -83,11 +83,11 @@ mu_df <- data.frame(
 
 ggplot(
   data = mu_df,
-  mapping = aes(mu_mcmc_sample)) + 
+  mapping = aes(mu_mcmc_sample)
+) +
   geom_density(
-      linewidth = 0.5
-    )
-
+    linewidth = 0.5
+  )
 
 
 # ---- もっと簡単に記述する方法 ----
