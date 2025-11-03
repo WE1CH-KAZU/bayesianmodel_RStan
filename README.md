@@ -86,6 +86,19 @@ renv::snapshot()
 ```
 をして、gitでコミットすれば更新される。
 
+今後は、
+```r
+install.packages("pkgname")
+```
+ではなく
+```r
+# 最新版インストール
+renv::install("pkgname")
+
+# バージョン指定インストール
+renv::install("pkgname@X.XX.X")
+```
+を使っていく事
 
 # renvで管理されている内容を知りたいとき
 ### 概要を知る
